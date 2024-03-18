@@ -260,7 +260,7 @@ dial-peer voice 82 Voip
 @@@@@@
 !@@@EDGE ROUTE CONFIG
 config t
-   hostname EDGE_
+   hostname EDGE41
    enable secret pass
    service password-encryption
    no logging console
@@ -275,28 +275,28 @@ config t
       exec-timeout 0 0
    Int Gi 0/0/0
      description INSIDE
-     ip add 10._._.1 255.255.255.0
+     ip add 10.41.41.1 255.255.255.0
 	 no shutdown
    Int Gi 0/0/1
      description OUTSIDE
-	 ip add 200.0.0._ 255.255.255.0
+	 ip add 200.0.0.41 255.255.255.0
 	 no shutdown
    Int Loopback 0
      description VIRTUALIP
-	 ip add _.0.0.1 255.255.255.255
+	 ip add 41.0.0.1 255.255.255.255
  end
 
  
  !!! EDGE route NOT dikit to ClassMate:
   conf t
  ip routing 
-!ip route 10.11.0.0 255.255.0.0 200.0.0.11
+ ip route 10.11.0.0 255.255.0.0 200.0.0.11
  ip route 10.12.0.0 255.255.0.0 200.0.0.12
  ip route 10.21.0.0 255.255.0.0 200.0.0.21
  ip route 10.22.0.0 255.255.0.0 200.0.0.22
  ip route 10.31.0.0 255.255.0.0 200.0.0.31
  ip route 10.32.0.0 255.255.0.0 200.0.0.32
- ip route 10.41.0.0 255.255.0.0 200.0.0.41
+ !ip route 10.41.0.0 255.255.0.0 200.0.0.41
  ip route 10.42.0.0 255.255.0.0 200.0.0.42
  ip route 10.51.0.0 255.255.0.0 200.0.0.51
  ip route 10.52.0.0 255.255.0.0 200.0.0.52
@@ -306,7 +306,7 @@ config t
  ip route 10.72.0.0 255.255.0.0 200.0.0.72
  ip route 10.81.0.0 255.255.0.0 200.0.0.81
  ip route 10.82.0.0 255.255.0.0 200.0.0.82
- ip route 10._.0.0 255.255.0.0 10._._.4
+ ip route 10.41.0.0 255.255.0.0 10.41.41.4
  end
  
 *********************************************
@@ -314,13 +314,13 @@ ROUTING
 @SWITCH/COREBABA
 conf t 
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._._.1
+ip route 0.0.0.0 0.0.0.0 10.41.41.1
 end
 
 @CUCM
 conf t
 ip routing
-ip route 0.0.0.0 0.0.0.0 10._.100.4
+ip route 0.0.0.0 0.0.0.0 10.41.100.4
 end
 
 ********************************************
