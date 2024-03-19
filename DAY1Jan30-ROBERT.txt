@@ -157,7 +157,7 @@ ephone-dn 6
 ephone-dn 7
   number 4177
 ephone-dn 8
-  number _88	
+  number 4188	
 Ephone 1
   Mac-address 8478.aced.5889
   type 8945
