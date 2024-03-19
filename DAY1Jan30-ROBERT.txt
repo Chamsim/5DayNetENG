@@ -94,7 +94,10 @@ Int Fa 0/7
   switchport mode access
   switchport access vlan 100    
  end
- 
+
+!!@get mac address and device info
+sh ip arp
+
 !!cisco unified call manager Express command
 !@@@CUCM-M
 config t
@@ -119,20 +122,24 @@ config t
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern 4140
+   destination-pattern 4100
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern 4141
+   destination-pattern 4101
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern 4142
+   destination-pattern 4102
    port 0/0/2
 dial-peer voice 4 pots
    destination-pattern 4143
    port 0/0/3
 end
-!@@test dial analog phone@
+
+!!@@test dial analog phone@
 csim start 4140
+
+!!@@show created dial number for analog phone@@
+sh dial-peer voice summary 
 
 !!IP telephony
 config t
@@ -325,6 +332,12 @@ ip routing
 ip route 0.0.0.0 0.0.0.0 10.41.100.4
 end
 
+
+!@how to static route windows server@
+
+cmd
+route add 10.0.0.0 mask 255.0.0.0 10.41.1.4
+route add 200.0.0.0 mass 255.255.255.0 10.41.1.4
 ********************************************
 
  
@@ -333,9 +346,9 @@ end
 config t
 dial-peer voice 69 voip
  service rivanaa out-bound
- destination-pattern _69
- session target ipv4:10._.100.8
- incoming called-number _69
+ destination-pattern 4169
+ session target ipv4:10.41.100.8
+ incoming called-number 4169
  dtmf-relay h245-alphanumeric
  codec g711ulaw
  no vad
@@ -358,13 +371,13 @@ application
   param max-time-vm-retry 2
   param voice-mail 1234
   param max-time-call-retry 700
-  param aa-pilot _69
+  param aa-pilot 4169
  service rivanqueue flash:app-b-acd-3.0.0.2.tcl
   param queue-len 15
-  param aa-hunt1 _00
-  param aa-hunt2 _77
-  param aa-hunt3 _01
-  param aa-hunt4 _55
+  param aa-hunt1 4122
+  param aa-hunt2 4177
+  param aa-hunt3 4100
+  param aa-hunt4 4155
   param queue-manager-debugs 1
   param number-of-hunt-grps 4
 ****************************************************************************
