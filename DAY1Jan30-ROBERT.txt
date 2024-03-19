@@ -119,18 +119,20 @@ config t
 !!!CUCM ANALOG PHONES CONFIG
 configure terminal
 dial-peer voice 1 pots
-   destination-pattern 4100
+   destination-pattern 4140
    port 0/0/0
 dial-peer voice 2 pots
-   destination-pattern 4101
+   destination-pattern 4141
    port 0/0/1
 dial-peer voice 3 pots
-   destination-pattern _02
+   destination-pattern 4142
    port 0/0/2
 dial-peer voice 4 pots
-   destination-pattern _03
+   destination-pattern 4143
    port 0/0/3
 end
+!@@test dial analog phone@
+csim start 4140
 
 !!IP telephony
 config t
