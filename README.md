@@ -31,7 +31,7 @@ L        192.168.1.129/32 is directly connected, Vlan200
 
 
 
-
+@@VPN Configuration@@
 @JP
 config t
 no logging console
