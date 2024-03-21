@@ -153,3 +153,82 @@ ip nat inside source list 2 int gi 1 overload
 !@para sa ibang future bldg 
 
 do sh ip nat translation
+
+
+config t
+no IP access-list standard NOSKUL
+ip access-list standard NOSKUL
+deny 110.34.0.0 0.0.255.255
+deny 162.241.0.0 0.0.255.255
+deny 166.62.0.0 0.0.255.255
+deny 208.97.0.0 0.0.255.255
+permit any
+do sh ip access-list NOPORN
+int gi 1
+no ip access-group NOPORNPORN in 
+ip access-group NOSKUL in
+
+
+EXAM Q3: Protect your website and app with firewall
+
+how to be a Cybersecurity Analyst
+1. master OSI layer
+2. learn hacking tools: NMAP, nessus, Metasploit, AirCrack, etc.
+3. join capture the flags
+config t 
+ip host www.web8.com 192.168.102.8
+ip host www.web9.com 192.168.102.9
+int gi 2
+ ip add 192.168.102.9 255.255.255.0 Secondary
+service finger
+service tcp-small-servers
+service udp-small-servers
+ip dns server
+ip http server
+ip http secure-server
+end
+
+
+ex4 create a firewall policy to protect web8 and web9 with these condition
+web8 is a web and secureweb server
+web9 is an ssh and dns server
+solution:use extended ACL 100-199
+@VPN: protocol Hacker Victom Port
+config t
+no access-list 100 
+access-list 100 permit tcp any host www.web8.com eq 80
+access-list 100 permit tcp any host www.web8.com eq 443
+access-list 100 permit tcp any host www.web8.com eq 23
+access-list 100 permit tcp any host www.web9.com eq 80
+access-list 100 permit tcp any host www.web9.com eq 22
+access-list 100 permit tcp any host www.web9.com eq 53
+!!!access-list 100 deny ip any any matic na yan, Tanga
+int gi 2
+ip access-group 100 in
+do sh ip access-list 100
+
+another method
+config t
+no ip access-list extended FWPOLICY1
+ip access-list extended FWPOLICY1
+permit tcp any host www.web8.com eq 80
+permit tcp any host www.web8.com eq 443
+permit tcp any host www.web9.com eq 22
+permit tcp any host www.web9.com eq 53
+int gi 2
+ip access-group FWPOLICY1 in
+advance level: softwareCracking.
+
+ex 2 create a FWPOLICY2 to allow these conditions
+open ping, dns, https on web 8 = 3 line
+open everything on web 9 = 1 line
+config t 
+no ip access-list extended FWPOLICY2
+ip access-list extended FWPOLICY2
+permit icmp any host www.web8.com 
+permit tcp any host www.web8.com eq 53
+permit tcp any host www.web8.com eq 443
+permit ip any host www.web9.com 
+int gi 1
+ip access-group FWPOLICY2 in
+do sh ip access-list FWPOLICY2
