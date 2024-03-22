@@ -16,29 +16,54 @@ Task1: 5 mins answers:
 
 TASK2: CONFIGURING IPV6 ON CISCO DEVICES:
 method1: Ipv6 autoconfig
-@edge
+@p1
 config t
 ipv6 unicast-routing
-int gi 0/0/0
+int e0/0
+ ipv6 enable
+ Ipv6 address autoconfig
+
+@p2
+config t
+ipv6 unicast-routing
+int e1/0
  ipv6 enable
  Ipv6 address autoconfig
 
 method2: EUI-64 method: using the MAc Address
 as host.
-@edge
+@p1
 config t
 ipv6 unicast-routing
-int gi 0/0/1
- ipv6 add ace1:ace2:ace3:1212::/64 EUI-64
+int e0/0
+no shut
+ ipv6 add bacb:2112:3112:4114::/64 EUI-64
+ do sh ipv6 int brief
+end
+
+@P2
+config t
+ipv6 unicast-routing
+int e1/0
+no shut
+ ipv6 add bacb:2112:3112:4114::/64 EUI-64
  do sh ipv6 int brief
 end
 
 Method3: STatic IPv6 address manual:
-@edge
+@p1
 config t
 ipv6 unicast-routing
-int gi 0/0/1
- ipv6 add faca:faba:fada:fafa::1212/64
+int e0/0
+ ipv6 add bacb:2112:3112:4114::1213/64
+ do sh ipv6 int brief
+end
+
+@p2
+config t
+ipv6 unicast-routing
+int e1/0
+ ipv6 add bacb:2112:3112:4114::1212/64
  do sh ipv6 int brief
 end
 
