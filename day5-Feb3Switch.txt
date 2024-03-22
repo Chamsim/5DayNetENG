@@ -295,30 +295,30 @@ Guard fa0/5 and fa0/7 so that, no Arduino can
 be connected.
 @BABA
 config t
-Int fa0/5
+Int fa0/6
 switchport mode access
 switchport port-security
 switchport port-security mac-address Sticky
 switchport port-security maximum 1
 switchport port-security violation shutdown
-Int fa0/7
+Int fa0/8
 switchport mode access
 switchport port-security
 switchport port-security mac-address Sticky
 switchport port-security maximum 1
 switchport port-security violation shutdown
 do sh port-security address
-   1    ccd8.c1fb.1045    SecureSticky                  Fa0/5        -
-   1    ccd8.c1fb.2325    SecureSticky
+   1    001a.0706.c2fe    SecureSticky                  Fa0/5        -
+   1    001a.0709.4929    SecureSticky
 do sh int status err-disable
 
 @baba: make it alive:
 config t
-Int fa0/5
+Int fa0/6
 NO switchport port-security
 shut
 no shut
-Int fa0/7
+Int fa0/8
 NO switchport port-security
 shut
 no shut
