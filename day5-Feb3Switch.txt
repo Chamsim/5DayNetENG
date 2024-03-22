@@ -32,6 +32,7 @@ int e1/0
 
 method2: EUI-64 method: using the MAc Address
 as host.
+
 @p1
 config t
 ipv6 unicast-routing
@@ -115,11 +116,11 @@ indicator no.2: if you plug a device=30s
 indicator no.3: Kislap every 1/2 seconds
 
 TASK6: HOW TO GET FIRED IMMEDIATELY!
-@taas:
-config t
- spanning-tree vlan 1
-end
 @baba:
+config t
+spanning-tree vlan 1
+end
+@taas:
 config t
 spanning-tree vlan 1
 end
@@ -140,7 +141,9 @@ TASK8: ACCESS PORTS VS TRUNK PORTS:
 Trunk Ports: switch to switch:
 TAAS/BABA:
 config t
-Int Range fa0/9-12
+Int Range fa0/10-12
+shut
+no shut
  switchport trunk Encap Dot1Q
  switchport mode trunk
  do sh int trunk
@@ -157,8 +160,8 @@ Config t
 spanning-tree mode pvst
 spanning-tree vlan 1-100 root Primary
 do sh spanning-tree vlan 1
-BABA:/d2
-Config t              32768->   28672
+BABA:/d2       232768->   28672
+Config t              
 spanning-tree mode pvst
 spanning-tree vlan 1-100 root Secondary
 do sh spanning-tree vlan 1
@@ -219,12 +222,20 @@ end
 
 TASK11: Multiple instance STP:
 step1: sync all Vlans with VTP:vlanTrunkingProtocol:
-TAAS/BABA:
+TAAS/BABA: d1/d2
 config t
 vtp domain ccna
 vtp password pass
 vtp mode server
-vtp version 2
+vtp version 1
+exit
+
+a1/a2:access sw
+config t
+vtp domain ccna
+vtp password pass
+vtp mode client
+vtp version 1
 exit
 
 step2: 
@@ -260,11 +271,16 @@ TASK14: MAKE YOUR OWN SUPERMAN BOSSING:
 @Taas: Make Taas RootBridge again:
 config t
 spanning-tree mst 0 root primary
-spanning-tree mst 1 root primary
+spanning-tree mst 1 root Secondary
+spanning-tree mst 2 root primary
+spanning-tree mst 3 root Secondary
+
 @baba
 config t
 spanning-tree mst 0 root Secondary
-spanning-tree mst 1 root Secondary
+spanning-tree mst 1 root primary
+spanning-tree mst 2 root Secondary
+spanning-tree mst 3 root primary
 
 TASK15: Implementing Port-Security in Cisco
 Switch:
